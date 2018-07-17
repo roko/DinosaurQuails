@@ -3,7 +3,7 @@ An app to help you organize and optimize your job search!
 
 
 
-**Team**
+## Team
 
 Product Owner: Tristan Carter
 
@@ -14,13 +14,9 @@ Development Team: Ro Ko, Ningyi Ma & Aiman Zakaria.
 
 
 
-**Table of Contents**
-
-//TODO
 
 
-
-**Tech Stack**
+## Tech Stack
 
 Axios
 
