@@ -11,11 +11,20 @@ Development Team: Ro Ko, Ningyi Ma & Aiman Zakaria.
 
 **Tech Stack**
 Axios
+
 Body Parser
+
 Express
+
 React 
+
 React Redux
+
 React Router
+
 Morgan 
+
 Mongoose
+
 MySQL/PostgreSQL
+
