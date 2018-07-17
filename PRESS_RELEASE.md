@@ -17,28 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Job Concat
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Anyone looking to make there job search a little clearer, more efficient and maybe even enjoyable.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Organize and optimize your job search by cataloging prospects, interview stages and common interview challenges.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > The natural consequence of a diligent job seeker - a backlog of offers, attempts and outreach.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > All of the aforementioned factors are tracked in one, easy to navigate location.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > You suck at job hunting. Let us help.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > One click and you can begin tracking every aspect of your job search.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > I suck SO MUCH LESS at job hunting. Ask my mom. 
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Ask that guy's mom, or download our app and see for yourself.
