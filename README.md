@@ -2,14 +2,20 @@
 An app to help you organize and optimize your job search!
 
 **Team**
+
 Product Owner: Tristan Carter
+
 Scrum Master: James McCurley
+
 Development Team: Ro Ko, Ningyi Ma & Aiman Zakaria.
 
+
 **Table of Contents**
+
 //TODO
 
 **Tech Stack**
+
 Axios
 
 Body Parser
