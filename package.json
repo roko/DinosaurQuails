@@ -1,0 +1,51 @@
+{
+  "name": "DinosaurQuails",
+  "version": "1.0.0",
+  "description": "An app to help you organize and optimize your job search!",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DinosaurQuails/DinosaurQuails.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DinosaurQuails/DinosaurQuails/issues"
+  },
+  "homepage": "https://github.com/DinosaurQuails/DinosaurQuails#readme",
+  "dependencies": {
+    "@material-ui/core": "^1.4.0",
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.2.4",
+    "passport": "^0.4.0",
+    "querystring": "^0.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "request": "^2.87.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "morgan": "^1.9.0",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  }
+}
