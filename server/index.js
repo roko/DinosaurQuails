@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
 const app = express();
 
 //Setup Middleware
@@ -12,35 +11,15 @@ app.use(session({
   cookie: {secure: true}
 }));
 
-//Setup Headers
+//Establish routes
+app.use('/jobs', require('./jobs'));
+
+app.use('/login', require('./login'));
+
+app.use('/signup', require('./signup'));
 
 //Serve static files
 app.use(express.static(__dirname + '/../client/dist'));
-//Establish routes
-
-//sign up
-app.post('/signup', function (req, res) {
-
-});
-app.get('/signup', function (req, res) {
-
-});
-//log in
-app.get('/login', function (req, res) {
-
-});
-app.post('/login', function (req, res) {
-
-});
-
-//jobs
-app.get('/jobs', function (req, res) {
-
-});
-app.post('/jobs', function (req, res) {
-
-});
-
 
 //Establish port#
 app.listen(3000, function() {
