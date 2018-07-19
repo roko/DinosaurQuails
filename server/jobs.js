@@ -1,4 +1,5 @@
 const db = require('../db/index.js');
+const express = require('express');
 const app = require('./index.js');
 const bluebird = require('bluebird');
 const jobs = app.Router();
@@ -26,3 +27,5 @@ const jobHelperSaver = (err, inputtedTerms) {
 //test this
 //save update
 }
+
+module.exports = router;
