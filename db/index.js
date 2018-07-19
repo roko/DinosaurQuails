@@ -39,7 +39,8 @@ let jobSchema = mongoose.Schema({
   postDate: Date,
   appliedDate: Date,
   interviewedDate: Date,
-  coverLetterUrl: String
+  coverLetterUrl: String,
+  state: String
 });
 
 // ADD JOB MODEL
