@@ -4,7 +4,7 @@
   "description": "An app to help you organize and optimize your job search!",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,11 +38,15 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "jest": "^23.4.1",
     "morgan": "^1.9.0",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0"
   },
   "babel": {
-    "presets": ["env", "react"]
+    "presets": [
+      "env",
+      "react"
+    ]
   }
 }
