@@ -17,11 +17,10 @@ let userSchema = mongoose.Schema({
   lastName: String,
   userName: String,
   email: String,
-  password: String,
-  jobs: [job]
+  password: String
 });
 
-//TODO: ADD USER MODEL
+//TODO: ADD USER MODEL for user db
 let User = mongoose.model('User', userSchema);
 
 // ADD JOB SCHEMA
