@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Nav from "./Nav.js";
+import Nav from "./Nav.jsx";
 import axios from 'axios';
 
 class App extends Component {
