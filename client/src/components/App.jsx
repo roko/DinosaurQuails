@@ -1,21 +1,23 @@
-import { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
+import Nav from "./Nav.js";
 import axios from 'axios';
-import Nav from './Nav.jsx';
 
-export default class extends Component {
-  constructor (props) {
+class App extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
       default: false
-    }
+    };
   }
 
   render() {
     return (
       <Fragment>
         <Nav />
-      <Fragment />
-    )
+      </Fragment>
+    );
   }
 }
+
+export default App;
