@@ -1,19 +1,43 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const bcrypt = require('bcrypt-nodejs');
-const app = express();
+const db = require('../db/index.js');
+const app = require('./index.js');
+const router = express.Router();
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-app.use(bcrypt);
+// const bcrypt = require('bcrypt-nodejs');
 
-app.post('/signup', function (req, res) {
+// app.use(bcrypt);
+
+router.post('/signup', function(req, res) {
   //check for instance of user
-    //if not, add new User to DB
+  //if not, add new User to DB
   //Else render 'Username already taken' prompt
+  // let user = {
+  //   firstName: req.body.firstName,
+  //   lastName: req.body.lastName,
+  //   userName: req.body.userName,
+  //   email: req.body.email,
+  //   password: req.body.password
+  // };
+
+  let user = {
+    firstName: 'Ningyi',
+    lastName: 'Ma',
+    userName: 'nma',
+    email: 'ningyi6@gmail.com',
+    password: 'Welcome@123'
+  };
+
+  db.createUser(user, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
 });
 
-app.get('/signup', function (req, res) {
+router.get('/signup', function(req, res) {
   //render signup modal
 });
+
+module.exports = router;
