@@ -1,15 +1,20 @@
 const express = require('express');
+
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 
 //Setup Middleware
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({
-  secret: 'jurassic eggs',
-  cookie: {secure: true}
-}));
+app.use(
+  session({
+    secret: 'jurassic eggs',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true }
+  })
+);
 
 //Establish routes
 app.use('/jobs', require('./jobs'));
@@ -27,5 +32,3 @@ app.listen(3000, function() {
 });
 
 module.exports.app = app;
-
-
