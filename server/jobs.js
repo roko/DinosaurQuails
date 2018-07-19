@@ -28,4 +28,4 @@ const jobHelperSaver = (err, inputtedTerms) {
 //save update
 }
 
-module.exports = router;
+module.exports = jobs;
