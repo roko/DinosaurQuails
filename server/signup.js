@@ -19,6 +19,7 @@ router.post('/signup', function(req, res) {
       res.sendStatus(500);
     } else {
       if (data.messageCode === 101 || data.messageCode === 102) {
+        res.json(data);
         res.redirect('/login');
       } else {
         util.createSession(req, res, data);

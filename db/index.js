@@ -83,7 +83,7 @@ let login = (query, callback) => {
         if (res === true) {
           callback(null, user);
         } else {
-          callback(null, { messageCode: 104, message: 'Wrong error message' });
+          callback(null, { messageCode: 104, message: 'Wrong password' });
         }
       });
     }
