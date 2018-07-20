@@ -11,7 +11,7 @@ db.once('open', function() {
   console.log('Server connected');
 });
 
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 //TODO: ADD USER SCHEMA
@@ -114,21 +114,26 @@ let jobSchema = mongoose.Schema({
 let Job = mongoose.model('Job', jobSchema);
 
 let createJob = (fieldInfo, callback) => {
+  console.log('fieldInfo', fieldInfo);
 
   let jobOpportunity = new Job({
-      userId: String,
+    userId: 'some user id',
+    company: {
       name: fieldInfo.name,
       jobTitle: fieldInfo.jobTitle,
-      webSite: fieldInfo.webSite,
+      webSite: fieldInfo.webSite
+    },
+    contact: {
       email: fieldInfo.email,
       phone: fieldInfo.phone,
-      recruiter: fieldInfo.recruiter,
-      postDate: fieldInfo.postDate,
-      appliedDate: fieldInfo.appliedDate,
-      interviewedDate: fieldInfo.interviewedDate,
-      coverLetterUrl: fieldInfo.coverLetterUrl,
-      state: fieldInfo.state
-    })
+      recruiter: fieldInfo.recruiter
+    },
+    postDate: fieldInfo.postDate,
+    appliedDate: fieldInfo.appliedDate,
+    interviewedDate: fieldInfo.interviewedDate,
+    coverLetterUrl: fieldInfo.coverLetterUrl,
+    state: fieldInfo.state
+  });
 
   jobOpportunity.save(function(error, savedJob) {
     if (error) {
@@ -138,6 +143,7 @@ let createJob = (fieldInfo, callback) => {
       console.log('saved job to db', savedJob);
       callback(null, savedJob);
     }
+  });
 };
 //EXPORT MODELS
 

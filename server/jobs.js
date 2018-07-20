@@ -2,6 +2,7 @@ const db = require('../db/index.js');
 const express = require('express');
 const app = require('./index.js');
 const bluebird = require('bluebird');
+const bodyParser = require('body-parser');
 const jobs = express.Router();
 
 const jobHelperDisplay = err => {
@@ -16,42 +17,44 @@ const jobHelperQuery = (err, searchTerms) => {
   // res.send()
 };
 
-const jobHelperSaver = (req, res) => {
+jobs.post('/jobs', function(req, res) {
+  // const jobHelperSaver = (req, res) => {
   //TODO:
   //input calender modal into date
   //test this
 
-    //create object of inputted fields first in case user left some fields blank so the entry still gets saved with 'none' as default value
+  //create object of inputted fields first in case user left some fields blank so the entry still gets saved with 'none' as default value
+  console.log('what is in the request', req.body);
+
   let fieldInfo = {
-    name: req.name || 'none',
-    jobTitle: req.title || 'none',
-    webSite: req.website || 'none',
-    email: req.email || 'none',
-    phone: req.phone || 'none',
-    recruiter: req.recruiter || 'none',
-    postDate: req.postDate || new Date(),
-    appliedDate: req.appliedDate || new Date(),
-    interviewedDate: req.interviewedDate || new Date(),
-    coverLetterUrl: req.coverLetterUrl|| 'none',
-    state: req.state || 'none'
-    }
+    name: req.body.name || 'none',
+    jobTitle: req.body.title || 'none',
+    webSite: req.body.website || 'none',
+    email: req.body.email || 'none',
+    phone: req.body.phone || 'none',
+    recruiter: req.body.recruiter || 'none',
+    postDate: req.body.postDate || new Date(),
+    appliedDate: req.body.appliedDate || new Date(),
+    interviewedDate: req.body.interviewedDate || new Date(),
+    coverLetterUrl: req.body.coverLetterUrl || 'none',
+    state: req.body.state || 'none'
+  };
 
   //send req.miscFields to DB for new instance
   db.createJob(fieldInfo, (err, data) => {
     if (err) {
-      console.log('Job Saver Error: ', err)
+      console.log('Job Saver Error: ', err);
       res.sendStatus(500);
     } else {
-      res.json('Job Saved!');
+      res.send('job saved!');
     }
-  })
-};
+  });
+});
 
 jobs.get('/jobs', jobHelperDisplay);
 //render '/jobs'and current 'job' instance
 
-jobs.post('/jobs', jobHelperSaver)
-
+// jobs.post('/jobs', jobHelperSaver);
 
 module.exports = jobs;
 
