@@ -26,7 +26,7 @@ const jobHelperSaver = (err, inputtedTerms) => {
 }
 
 jobs.get('/jobs', jobHelperDisplay);
-//render '/jobs'and current 'job' instances
+//render '/jobs'and current 'job' instance
 
 jobs.post('/jobs', jobHelperSaver);
 //send req.miscFields to DB for new instance
