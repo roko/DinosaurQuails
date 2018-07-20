@@ -1,7 +1,6 @@
-const express = require('express');
 const db = require('../db/index.js');
-const app = express();
-const router = app.Router();
+const app = require('./index.js');
+var router = require('express').Router();
 
 // const bcrypt = require('bcrypt-nodejs');
 
@@ -19,14 +18,6 @@ router.post('/signup', function(req, res) {
     password: req.body.password
   };
 
-  // let user = {
-  //   firstName: 'Ningyi',
-  //   lastName: 'Ma',
-  //   userName: 'nma',
-  //   email: 'ningyi6@gmail.com',
-  //   password: 'Welcome@123'
-  // };
-
   db.createUser(user, (err, data) => {
     if (err) {
       res.sendStatus(500);
@@ -38,6 +29,7 @@ router.post('/signup', function(req, res) {
 
 router.get('/signup', function(req, res) {
   //render signup modal
+  res.sendFile(path.join(__dirname, '../client/dist/signup.html'));
 });
 
 module.exports = router;
