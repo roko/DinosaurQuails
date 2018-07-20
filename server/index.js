@@ -1,5 +1,5 @@
 const express = require('express');
-
+const db = require('../db/index.js');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const morgan = require('morgan');
@@ -20,10 +20,11 @@ app.use(
 //Establish routes
 // app.use('/jobs', require('./jobs'));
 
-app.use('/login', require('./login'));
+app.post('/signup', require('./signup.js'));
+app.get('/signup', require('./signup.js'));
 
-app.use('/signup', require('./signup'));
-
+app.post('/login', require('./login.js'));
+app.get('/login', require('./login.js'));
 //Serve static files
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -33,4 +34,4 @@ app.listen(3000, function() {
 });
 
 //save update
-module.exports.app = app;
+module.exports = app;

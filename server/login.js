@@ -1,8 +1,6 @@
-const express = require('express');
 const db = require('../db/index.js');
 const app = require('./index.js');
-// const application = express();
-const login = express.Router();
+const login = require('express').Router();
 
 login.get('/login', function(req, res) {
   //render login page/modal
