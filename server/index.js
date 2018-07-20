@@ -5,6 +5,7 @@ const session = require('express-session');
 const morgan = require('morgan');
 const util = require('./helpers/utilities.js');
 const app = express();
+const createUser = require('../db/index.js').createUser;
 
 //Setup Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +41,7 @@ app.get('/logout', function(req, res) {
     //send confirmation that session is destroyed & state change trigger
   });
 });
+
 
 
 //Establish port#
