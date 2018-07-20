@@ -11,7 +11,6 @@ const jobHelperQuery = (err, searchTerms) => {
   // //get all jobs (no filter terms) from db
   // //pass terms into find
   // res.send()
-}
 
 const jobHelperSaver = (err, inputtedTerms) => {
   // if (err) {
@@ -29,3 +28,4 @@ jobs.post('/jobs', jobHelperSaver);
   //send req.miscFields to DB for new instance
 
 module.exports = jobs;
+

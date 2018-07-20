@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/di');
+mongoose.connect('mongodb://localhost/dinasour');
 
 const db = mongoose.connection;
 
@@ -24,6 +24,7 @@ let userSchema = mongoose.Schema({
 let User = mongoose.model('User', userSchema);
 
 let createUser = (user, callback) => {
+  console.log('signup', user);
   User.findOne({ email: user.email }, (err, existingUser) => {
     if (err) {
       callback(err, null);
@@ -81,5 +82,5 @@ let Job = mongoose.model('Job', jobSchema);
 
 //EXPORT MODELS
 
-module.exports.db = db;
+// module.exports.db = db;
 module.exports.createUser = createUser;
