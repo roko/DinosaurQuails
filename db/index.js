@@ -113,8 +113,35 @@ let jobSchema = mongoose.Schema({
 // ADD JOB MODEL
 let Job = mongoose.model('Job', jobSchema);
 
+let createJob = (fieldInfo, callback) => {
+
+  let jobOpportunity = new Job({
+      userId: String,
+      name: fieldInfo.name,
+      jobTitle: fieldInfo.jobTitle,
+      webSite: fieldInfo.webSite,
+      email: fieldInfo.email,
+      phone: fieldInfo.phone,
+      recruiter: fieldInfo.recruiter,
+      postDate: fieldInfo.postDate,
+      appliedDate: fieldInfo.appliedDate,
+      interviewedDate: fieldInfo.interviewedDate,
+      coverLetterUrl: fieldInfo.coverLetterUrl,
+      state: fieldInfo.state
+    })
+
+  jobOpportunity.save(function(error, savedJob) {
+    if (error) {
+      console.log('could not save job to db', error);
+      callback(error, null);
+    } else {
+      console.log('saved job to db', savedJob);
+      callback(null, savedJob);
+    }
+};
 //EXPORT MODELS
 
 // module.exports.db = db;
 module.exports.createUser = createUser;
 module.exports.login = login;
+module.exports.createJob = createJob;

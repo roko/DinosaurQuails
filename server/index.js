@@ -20,6 +20,7 @@ app.use(
 
 app.use(express.static(__dirname + '/../client/dist'));
 //Establish routes
+
 // app.use('/jobs', require('./jobs'));
 app.get('/', util.checkUser, (req, res) => {
   // res.render('index');
@@ -31,11 +32,16 @@ app.get('/signup', require('./signup.js'));
 app.post('/login', require('./login.js'));
 app.get('/login', require('./login.js'));
 
+
 app.get('/logout', function(req, res) {
   req.session.destroy(function() {
     res.redirect('/');
   });
 });
+
+// app.use('/jobs', require('./jobs'));
+app.post('/jobs', require('./jobs.js'));
+app.get('/jobs', require('./jobs.js'));
 
 //Serve static files
 
