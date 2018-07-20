@@ -11,7 +11,7 @@ db.once('open', function() {
   console.log('Server connected');
 });
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const saltRounds = 10;
 
 //TODO: ADD USER SCHEMA
