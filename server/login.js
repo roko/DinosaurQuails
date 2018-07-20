@@ -20,7 +20,7 @@ login.post('/login', function(req, res) {
     } else {
       if (data.messageCode === 104 || data.messageCode === 103) {
         res.json(data);
-        res.redirect('/login');
+        // res.redirect('/login');
       } else {
         util.createSession(req, res, data);
       }

@@ -20,7 +20,7 @@ router.post('/signup', function(req, res) {
     } else {
       if (data.messageCode === 101 || data.messageCode === 102) {
         res.json(data);
-        res.redirect('/login');
+        // res.redirect('/login');
       } else {
         util.createSession(req, res, data);
       }
@@ -30,7 +30,7 @@ router.post('/signup', function(req, res) {
 
 router.get('/signup', function(req, res) {
   //render signup modal
-  res.sendFile(path.join(__dirname, '../client/dist/signup.html'));
+  // res.sendFile(path.join(__dirname, '../client/dist/signup.html'));
 });
 
 module.exports = router;
