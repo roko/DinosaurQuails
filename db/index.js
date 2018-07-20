@@ -11,6 +11,9 @@ db.once('open', function() {
   console.log('Server connected');
 });
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 //TODO: ADD USER SCHEMA
 let userSchema = mongoose.Schema({
   firstName: String,
@@ -39,23 +42,29 @@ let createUser = (user, callback) => {
         callback(null, { messageCode: 102, message: 'User name already exists' });
       }
     } else {
-      let user_obj = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        userName: user.userName,
-        email: user.email,
-        password: user.password
-      };
-
-      let newUser = new User(user_obj);
-      newUser.save((err, savedUser) => {
+      bcrypt.hash(user.password, saltRounds, function(err, hash) {
         if (err) {
-          console.log(err);
           callback(err, null);
-        } else {
-          console.log('savedUser', savedUser);
-          callback(null, savedUser);
         }
+
+        let user_obj = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          userName: user.userName,
+          email: user.email,
+          password: hash
+        };
+
+        let newUser = new User(user_obj);
+        newUser.save((err, savedUser) => {
+          if (err) {
+            console.log(err);
+            callback(err, null);
+          } else {
+            console.log('savedUser', savedUser);
+            callback(null, savedUser);
+          }
+        });
       });
     }
   });
@@ -70,7 +79,13 @@ let login = (query, callback) => {
     if (!user) {
       callback(null, { messageCode: 103, message: 'User does not exist' });
     } else {
-      callback(null, user);
+      bcrypt.compare(query.password, user.password, function(err, res) {
+        if (res === true) {
+          callback(null, user);
+        } else {
+          callback(null, { messageCode: 104, message: 'Wrong password' });
+        }
+      });
     }
   });
 };

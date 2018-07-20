@@ -2,10 +2,6 @@ const db = require('../db/index.js');
 const app = require('./index.js');
 var router = require('express').Router();
 
-// const bcrypt = require('bcrypt-nodejs');
-
-// app.use(bcrypt);
-
 router.post('/signup', function(req, res) {
   //check for instance of user
   //if not, add new User to DB
@@ -22,7 +18,12 @@ router.post('/signup', function(req, res) {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.json(data);
+      if (data.messageCode === 101 || data.messageCode === 102) {
+        res.json(data);
+        res.redirect('/login');
+      } else {
+        util.createSession(req, res, data);
+      }
     }
   });
 });
