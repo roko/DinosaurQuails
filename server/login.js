@@ -14,11 +14,16 @@ login.post('/login', function(req, res) {
     email: req.body.email,
     password: req.body.password
   };
-  db.login(query, (err, user) => {
+  db.login(query, (err, data) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.json(user);
+      if (data.messageCode === 104 || data.messageCode === 103) {
+        res.redirect('/login');
+      } else {
+        util.createSession(req, res, user);
+        // res.json(data);
+      }
     }
   });
 });

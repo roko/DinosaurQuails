@@ -3,6 +3,7 @@ const db = require('../db/index.js');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const morgan = require('morgan');
+const util = require('./helpers/utilities.js');
 const app = express();
 
 //Setup Middleware
@@ -19,12 +20,22 @@ app.use(
 
 //Establish routes
 // app.use('/jobs', require('./jobs'));
+app.get('/', util.checkUser, (req, res) => {
+  res.render('index');
+});
 
 app.post('/signup', require('./signup.js'));
 app.get('/signup', require('./signup.js'));
 
 app.post('/login', require('./login.js'));
 app.get('/login', require('./login.js'));
+
+app.get('/logout', function(req, res) {
+  req.session.destroy(function() {
+    res.redirect('/login');
+  });
+});
+
 //Serve static files
 app.use(express.static(__dirname + '/../client/dist'));
 
