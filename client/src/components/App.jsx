@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Nav from './Nav.jsx';
-import SelectBar from './SelectBar.jsx'
+import SelectBar from './SelectBar.jsx';
+import JobList from './JobList.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -57,6 +58,7 @@ class App extends Component {
       <Fragment>
         <Nav />
         <SelectBar />
+        <JobList jobData={this.state.jobs}/>
       </Fragment>
     );
   }

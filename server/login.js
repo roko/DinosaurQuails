@@ -4,7 +4,7 @@ const login = require('express').Router();
 
 login.get('/login', function(req, res) {
   //render login page/modal
-  res.sendFile(path.join(__dirname, '../client/dist/login.html'));
+  // res.sendFile(path.join(__dirname, '../client/dist/login.html'));
 });
 
 login.post('/login', function(req, res) {
