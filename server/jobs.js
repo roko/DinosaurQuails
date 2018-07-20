@@ -13,11 +13,7 @@ const jobHelperQuery = (err, searchTerms) => {
   res.send(db.Jobs.find(searchTerms));
   // get specific elements from db
   // //pass terms into find
-<<<<<<< HEAD
-  // res.send()
-=======
 }
->>>>>>> Created '/job' helper functions w/ Ro
 
 const jobHelperSaver = (err, inputtedTerms) => {
   let terms = inputtedTerms || 'none';
@@ -35,10 +31,5 @@ jobs.get('/jobs', jobHelperDisplay);
 jobs.post('/jobs', jobHelperSaver);
 //send req.miscFields to DB for new instance
 
-<<<<<<< HEAD
-module.exports = jobs;
-
-=======
 module.exports = jobs; 
 module.exports.jobHelperQuery = jobHelperQuery;
->>>>>>> Created '/job' helper functions w/ Ro
