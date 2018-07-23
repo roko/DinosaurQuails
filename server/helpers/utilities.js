@@ -26,6 +26,7 @@ const isLoggedIn = (req, res) => {
 const checkUser = (req, res, next) => {
   if (!exports.isLoggedIn(req)) {
     // res.redirect('/login');
+    res.json({ messageCode: 401, message: 'User Must Login' });
   } else {
     next();
   }
