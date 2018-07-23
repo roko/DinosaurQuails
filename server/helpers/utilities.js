@@ -2,8 +2,9 @@
 const createSession = (req, res, newUser) => {
   return req.session.regenerate(() => {
     req.session.user = newUser;
-    // res.redirect('/'); 
+    // res.redirect('/');
       //refer to comments below (14-16)
+    console.log(newUser);
   });
 };
 

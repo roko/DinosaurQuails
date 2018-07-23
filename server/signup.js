@@ -1,5 +1,6 @@
 const db = require('../db/index.js');
 const app = require('./index.js');
+const util = require('./helpers/utilities.js');
 var router = require('express').Router();
 
 router.post('/signup', function(req, res) {
@@ -14,14 +15,13 @@ router.post('/signup', function(req, res) {
     password: req.body.password
   };
 
-  
+
   db.createUser(user, (err, data) => {
     if (err) {
      return res.sendStatus(500);
     } else {
       if (data.messageCode === 101 || data.messageCode === 102) {
         res.json(data);
-        // res.redirect('/login');
       } else {
         util.createSession(req, res, data);
       }
@@ -31,7 +31,7 @@ router.post('/signup', function(req, res) {
 
 router.get('/signup', function(req, res) {
   //render signup modal
-  //pass on info for state change 
+  //pass on info for state change
 });
 
 module.exports = router;
