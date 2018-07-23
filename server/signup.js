@@ -15,10 +15,9 @@ router.post('/signup', function(req, res) {
     password: req.body.password
   };
 
-
   db.createUser(user, (err, data) => {
     if (err) {
-     return res.sendStatus(500);
+      res.sendStatus(500);
     } else {
       if (data.messageCode === 101 || data.messageCode === 102) {
         res.json(data);
