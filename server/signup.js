@@ -1,5 +1,6 @@
 const db = require('../db/index.js');
 const app = require('./index.js');
+const util = require('./helpers/utilities.js');
 var router = require('express').Router();
 
 router.post('/signup', function(req, res) {
@@ -20,17 +21,11 @@ router.post('/signup', function(req, res) {
     } else {
       if (data.messageCode === 101 || data.messageCode === 102) {
         res.json(data);
-        res.redirect('/login');
       } else {
         util.createSession(req, res, data);
       }
     }
   });
-});
-
-router.get('/signup', function(req, res) {
-  //render signup modal
-  res.sendFile(path.join(__dirname, '../client/dist/signup.html'));
 });
 
 module.exports = router;
