@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const hash = require('./helper.js');
+const bcrypt = require('bcrypt-nodejs');
+
 mongoose.connect('mongodb://localhost/dinasour');
 
 const db = mongoose.connection;
@@ -26,7 +28,6 @@ let userSchema = mongoose.Schema({
 let User = mongoose.model('User', userSchema);
 
 let createUser = (user, callback) => {
-  console.log(user);
   User.findOne({ email: user.email }, (err, existingUser) => {
     if (err) {
       callback(err, null);
@@ -41,7 +42,6 @@ let createUser = (user, callback) => {
     } else {
       hash.hashPass(user, (err, userResult) => {
         let newUser = new User(userResult);
-        console.log(userResult);
         newUser.save().then(data => {
           callback(null, data)
         }).catch(error => {
@@ -51,18 +51,6 @@ let createUser = (user, callback) => {
     }
   });
 };
-
-/*
- newUser.save((err, savedUser) => {
-  if (err) {
-    console.log(err);
-    callback(err, null);
-  } else {
-    console.log('savedUser', savedUser);
-    callback(null, savedUser);
-  }
-});
-*/
 
 let login = (query, callback) => {
   User.findOne({ email: query.email }, (err, user) => {

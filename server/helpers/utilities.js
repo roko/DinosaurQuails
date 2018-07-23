@@ -2,9 +2,17 @@
 const createSession = (req, res, newUser) => {
   return req.session.regenerate(() => {
     req.session.user = newUser;
-    // res.redirect('/');
-      //refer to comments below (14-16)
-    console.log(newUser);
+    // data for frontEnd
+    //extract everything from newUser except password.
+    // add an additional tag to update front end of logged in status
+    let withoutPass = {
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      userName: newUser.userName,
+      email: newUser.email,
+      _id: newUser._id
+    }
+    res.send(withoutPass);
   });
 };
 

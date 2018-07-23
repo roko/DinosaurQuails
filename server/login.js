@@ -3,10 +3,6 @@ const app = require('./index.js');
 const login = require('express').Router();
 const util = require('./helpers/utilities.js');
 
-login.get('/login', function(req, res) {
-  //render login page/modal
-});
-
 login.post('/login', function(req, res) {
   //send auth query to DB
   //if affirmed redirect to '/jobs'
@@ -20,7 +16,6 @@ login.post('/login', function(req, res) {
     } else {
       if (data.messageCode === 104 || data.messageCode === 103) {
         res.json(data);
-        // res.redirect('/login');
       } else {
         util.createSession(req, res, data); //<- send something to indicate/initiate 'session' state change
       }

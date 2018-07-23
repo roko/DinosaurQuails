@@ -29,9 +29,4 @@ router.post('/signup', function(req, res) {
   });
 });
 
-router.get('/signup', function(req, res) {
-  //render signup modal
-  //pass on info for state change
-});
-
 module.exports = router;
