@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Nav from './Nav.jsx';
 import SelectBar from './SelectBar.jsx';
 import JobList from './JobList.jsx';
+import LoginSignUp from './LoginSignUp.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -16,8 +17,10 @@ class App extends Component {
         userName: '',
         email: ''
       },
-      jobs: []
+      jobs: [],
+      loginSignupButtonIsClicked: false
     };
+    // this.showLoginOrSignUp = this.showLoginOrSignUp.bind(this);
   }
 
   retrieveData(endpoint, params, callback) {
@@ -53,13 +56,35 @@ class App extends Component {
           .catch(err => console.log(err));
   }
 
+  displayLoginSignup(id) {
+    this.setState({
+      loginSignupButtonIsClicked: id
+    });
+    console.log('current id', this.state.loginSignupButtonIsClicked)
+  }
+
+  showLoginOrSignUp(){
+    const view = this.state.loginSignupButtonIsClicked
+    console.log('current state',view )
+
+    if (view) {
+      return <LoginSignUp view={view}/>
+    }
+  }
+
   render() {
     return (
-      <Fragment>
-        <Nav />
-        <SelectBar />
-        <JobList jobData={this.state.jobs}/>
-      </Fragment>
+      <div>
+        <Fragment>
+          <Nav displayLoginSignup={this.displayLoginSignup.bind(this)}/>
+          <SelectBar />
+
+          <JobList jobData={this.state.jobs}/>
+        </Fragment>
+        <div className="signInRegister">
+          {this.showLoginOrSignUp()}
+        </div>
+      </div>
     );
   }
 }

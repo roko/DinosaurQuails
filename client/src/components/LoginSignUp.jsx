@@ -6,14 +6,23 @@ class LoginSignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignUp: false,
       entries: []
     }
   }
 
   render() {
-    return (
-      <div>Replace With Material Dialogue component or custom Modal</div>
-    )
+    if (this.props.view === 'login') {
+      return (
+      <div>Replace With Material Dialogue component or custom Modal for LOGIN</div>
+        )
+    }
+
+    if (this.props.view === 'register') {
+      return (
+      <div>Replace With Material Dialogue component or custom Modal for REGISTRATION</div>
+        )
+    }
   }
 }
+
+export default LoginSignUp;
