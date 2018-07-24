@@ -68,7 +68,7 @@ class App extends Component {
     console.log('current state',view )
 
     if (view) {
-      return <LoginSignUp view={view}/>
+      return <LoginSignUp view={view} displayLoginSignup={this.displayLoginSignup.bind(this)}/>
     }
   }
 
