@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
+import JobMin from 'JobMin.jsx';
 import axios from 'axios';
 
 
@@ -32,7 +33,7 @@ const styles = theme => ({
   },
 });
 
-class SimpleModal extends React.Component {
+class JobDetail extends React.Component {
   state = {
     open: false,
   };
@@ -65,7 +66,7 @@ class SimpleModal extends React.Component {
             <Typography variant="subheading" id="simple-modal-description">
               Description of job in detail modal. 
             </Typography>
-            <SimpleModalWrapped />
+            <JobDetailWrapped />
           </div>
         </Modal>
       </div>
@@ -73,11 +74,11 @@ class SimpleModal extends React.Component {
   }
 }
 
-SimpleModal.propTypes = {
+JobDetail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 // We need an intermediary variable for handling the recursive nesting.
-const SimpleModalWrapped = withStyles(styles)(SimpleModal);
+const JobDetailWrapped = withStyles(styles)(JobDetail);
 
-export default SimpleModalWrapped;
+export default JobDetailWrapped;
