@@ -32,6 +32,10 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  palette: {
+    color: '#7dce94',
+    backgroundColor: '#CE7D86'
+  },
 });
 
 class JobDetail extends React.Component {
@@ -49,11 +53,11 @@ class JobDetail extends React.Component {
 
   render() {
     const { classes } = this.props; 
-
+    
     return (
       <div>
         {/* <Typography gutterBottom>Click to get the full Modal experience!</Typography> */}
-        <Button onClick={this.handleOpen}>Detail</Button>
+        <Button onClick={this.handleOpen}>I N F O</Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -61,19 +65,26 @@ class JobDetail extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="title" id="modal-title">
-              Available Position
-            </Typography>
-            <Typography variant="subheading" id="simple-modal-description">
-              Description of job in detail modal. 
-            </Typography>
-            <JobDetailWrapped />
+          <Typography variant="title" id="modal-title">
+                Available Position
+              </Typography>
+              <Typography variant="subheading" id="simple-modal-description">
+                Description of job in detail modal.
+              </Typography>
+              <Typography variant="caption" id="simple-modal-description">
+               <p> Entry Date: </p>
+               <p> Status: </p> 
+               <p> Salary: </p>
+              </Typography> 
+            <Button className={classes.pallete} onClick={() => this.setState({ view: 'edit' })} align="inherit" variant="subheading">
+              E D I T 
+            </Button>
           </div>
         </Modal>
       </div>
     );
   }
-}
+} 
 
 JobDetail.propTypes = {
   classes: PropTypes.object.isRequired,
