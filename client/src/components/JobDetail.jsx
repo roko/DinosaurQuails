@@ -26,6 +26,7 @@ function getModalStyle() {
 const styles = theme => ({
   paper: {
     position: 'absolute',
+    height: theme.spacing.unit * 55,
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -47,7 +48,7 @@ class JobDetail extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props; 
 
     return (
       <div>
