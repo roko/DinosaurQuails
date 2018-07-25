@@ -56,9 +56,10 @@ class LoginSignUp extends React.Component {
             nonExistentUser: true
           })
         } else {
-          this.props.updateUserInfo(response.data.firstName, response.data.lastName, response.data.userName, response.data.email)
+          this.props.updateUserInfo(response.data.firstName, response.data.lastName, response.data.userName, response.data.email, response.data._id)
           this.props.isLoggedIn(true);
           this.props.displayLoginSignup(false);
+          this.props.getJobData();
         }
       }
     ))
@@ -80,7 +81,7 @@ class LoginSignUp extends React.Component {
             alreadyExistingUser: true
           })
         } else {
-          this.props.updateUserInfo(requestData.firstName, requestData.lastName, requestData.userName, requestData.email)
+          this.props.updateUserInfo(requestData.firstName, requestData.lastName, requestData.userName, requestData.email,response.data._id)
           this.props.isLoggedIn(true);
           this.props.displayLoginSignup(false);
         }
