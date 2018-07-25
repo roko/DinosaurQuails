@@ -66,6 +66,7 @@ class App extends Component {
 
   //can also use this for the logout component
   updateStatus(status) {
+    console.log('did i log in', status);
     this.setState({
       isLoggedIn: status
     })
@@ -104,7 +105,9 @@ class App extends Component {
     return (
       <div>
         <Fragment>
-          <Nav displayLoginSignup={this.displayLoginSignup.bind(this)}/>
+          <Nav
+            displayLoginSignup={this.displayLoginSignup.bind(this)}
+            isLoggedIn={this.state.isLoggedIn}/>
           <SelectBar />
 
           <JobList jobData={this.state.jobs}/>
