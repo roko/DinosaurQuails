@@ -124,7 +124,7 @@ class LoginSignUp extends React.Component {
 
               <div>
                 Password:
-               <input type="text" className="password" name="password" required/>
+               <input type="password" className="password" name="password" required/>
               </div>
 
 
