@@ -15,7 +15,8 @@ class App extends Component {
         firstName: '',
         lastName: '',
         userName: '',
-        email: ''
+        email: '',
+        id: ''
       },
       jobs: [],
       loginSignupButtonIsClicked: false,
@@ -72,16 +73,16 @@ class App extends Component {
     })
   }
 
-  updateUserInfo(firstName, lastName, userName, email) {
+  updateUserInfo(firstName, lastName, userName, email, id) {
     this.setState({
       user: {
         firstName: firstName,
         lastName: lastName,
         userName: userName,
-        email: email
+        email: email,
+        id: id
       }
-    })
-    //make a get req to db for the jobs and change jobs state?
+    }, this.getJobData)
   }
 
   showLoginOrSignUp(){
@@ -96,8 +97,22 @@ class App extends Component {
           displayLoginSignup={this.displayLoginSignup.bind(this)}
           submitData={this.submitData.bind(this) }
           isLoggedIn={this.updateStatus.bind(this)}
-          updateUserInfo = {this.updateUserInfo.bind(this)}/>
+          updateUserInfo = {this.updateUserInfo.bind(this)}
+          getJobData={this.getJobData.bind(this)}
+          />
           )
+    }
+  }
+
+  //this function gets called when user logs in, adds job, updates/deletes job
+  getJobData() {
+    if(this.state.isLoggedIn) {
+      this.retrieveData('/jobs', {userId: this.state.user.id}, ((response, err) => {
+        console.log('got job data', response.data)
+        this.setState({
+          jobs: response.data
+        })
+      }))
     }
   }
 
