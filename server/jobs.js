@@ -1,23 +1,18 @@
-const db = require('../db/index.js');
 const express = require('express');
-const app = require('./index.js');
-const bluebird = require('bluebird');
-const bodyParser = require('body-parser');
-const jobs = express.Router();
+const db = require('../db/index.js');
+let router = express.Router();
 
-const jobHelperDisplay = err => {
-  if (err) console.log('Issue Rendering all jobs, check DB: ', err);
-  res.send(db.Jobs.find());
-};
-const jobHelperQuery = (err, searchTerms) => {
-  if (err) console.log('Job Query Error: ', err);
-  res.send(db.Jobs.find(searchTerms));
-  // get specific elements from db
-  // //pass terms into find
-  // res.send()
+const jobHelperQuery = (req, res) => {
+  db.getJobs(req.query, (err, jobs) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(404);
+    }
+    res.json(jobs);
+  });
 };
 
-jobs.post('/jobs', function(req, res) {
+const jobPoster = (req, res) => {
   // const jobHelperSaver = (req, res) => {
   //TODO:
   //input calender modal into date
@@ -37,7 +32,8 @@ jobs.post('/jobs', function(req, res) {
     appliedDate: req.body.appliedDate || new Date(),
     interviewedDate: req.body.interviewedDate || new Date(),
     coverLetterUrl: req.body.coverLetterUrl || 'none',
-    state: req.body.state || 'none'
+    state: req.body.state || 'none',
+    userId: req.body.userId
   };
 
   //send req.miscFields to DB for new instance
@@ -49,13 +45,16 @@ jobs.post('/jobs', function(req, res) {
       res.send('job saved!');
     }
   });
+};
+
+router.post('/jobs', jobPoster);
+
+router.get('/jobs', jobHelperQuery);
+
+router.delete('/jobs', (req, res) => {
+  // add delete function to database
+  // will rely upon params to delete by Id
 });
 
-jobs.get('/jobs', jobHelperDisplay);
-//render '/jobs'and current 'job' instance
 
-// jobs.post('/jobs', jobHelperSaver);
-
-module.exports = jobs;
-
-module.exports.jobHelperQuery = jobHelperQuery;
+module.exports = router;

@@ -99,7 +99,7 @@ let createJob = (fieldInfo, callback) => {
   console.log('fieldInfo', fieldInfo);
 
   let jobOpportunity = new Job({
-    userId: 'some user id',
+    userId: fieldInfo.userId,
     company: {
       name: fieldInfo.name,
       jobTitle: fieldInfo.jobTitle,
@@ -127,9 +127,17 @@ let createJob = (fieldInfo, callback) => {
     }
   });
 };
+
+const getJobs = (query, callback) => {
+  Job.find(query)
+    .sort({postDate: 'desc'})
+    .then(jobs => callback(null, jobs))
+    .catch(err => callback(err, null));
+}
 //EXPORT MODELS
 
 // module.exports.db = db;
 module.exports.createUser = createUser;
 module.exports.login = login;
 module.exports.createJob = createJob;
+module.exports.getJobs = getJobs;
