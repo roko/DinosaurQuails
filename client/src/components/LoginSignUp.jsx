@@ -6,55 +6,100 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+
 import axios from 'axios';
 
 // This will build the Modal for User Login
 // On the Modal will be an option for Sign In
 // Would be a good idea to make separate components to call here for both Login and SignUp
 
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+});
+
+
 class LoginSignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       entries: [],
-      open: false
+      open: false,
+      nonExistentUser: false,
+      alreadyExistingUser: false
     };
   }
 
   logIntoAccount () {
-    axios.post('/login', {
+    let requestData = {
       email: document.getElementsByClassName('email')[0].value,
       password: document.getElementsByClassName('password')[0].value
-    })
-    .then(function (response) {
-      console.log('logged in');
-    })
-    .catch(function (error) {
-      console.log('cannot log in');
-    });
+    }
+
+    this.props.submitData('/login', requestData, ((response, err) => {
+        console.log('this went through', response.data)
+        if (response.data.messageCode === 103 || response.data.messageCode === 104) {
+          this.setState({
+            nonExistentUser: true
+          })
+        } else {
+          this.props.updateUserInfo(response.data.firstName, response.data.lastName, response.data.userName, response.data.email)
+          this.props.isLoggedIn(true);
+          this.props.displayLoginSignup(false);
+        }
+      }
+    ))
   }
 
-
   registerForAccount () {
-    axios.post('/signup', {
+    let requestData = {
       firstName: document.getElementsByClassName('firstName')[0].value,
       lastName: document.getElementsByClassName('lastName')[0].value,
       userName: document.getElementsByClassName('userName')[0].value,
       email: document.getElementsByClassName('email')[0].value,
       password: document.getElementsByClassName('password')[0].value
+    }
 
-    })
-    .then(function (response) {
-      console.log('got a new account!');
-    })
-    .catch(function (error) {
-      console.log('no account for you');
-    });
+    this.props.submitData('/signup', requestData, ((response, err) => {
+        console.log('got a new account', response.data)
+        if (response.data.messageCode === 101 || response.data.messageCode === 102) {
+          this.setState({
+            alreadyExistingUser: true
+          })
+        } else {
+          this.props.updateUserInfo(requestData.firstName, requestData.lastName, requestData.userName, requestData.email)
+          this.props.isLoggedIn(true);
+          this.props.displayLoginSignup(false);
+        }
+      }
+    ))
   }
 
   render() {
+    let MessageToUser = '';
+
+    if (this.state.nonExistentUser) {
+      MessageToUser = 'User does not exist';
+    }
+
+    if (this.state.alreadyExistingUser) {
+      MessageToUser = 'User already exists';
+    }
+
+    console.log('view', this.props.view)
     if (this.props.view === 'login') {
       return (
         <div>
@@ -69,6 +114,9 @@ class LoginSignUp extends React.Component {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
+              <div>
+                {MessageToUser}
+              </div>
               <div>
                 Email:
                 <input type="text" className="email" name="email" required/>

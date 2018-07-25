@@ -18,7 +18,8 @@ class App extends Component {
         email: ''
       },
       jobs: [],
-      loginSignupButtonIsClicked: false
+      loginSignupButtonIsClicked: false,
+      isLoggedIn: false
     };
     // this.showLoginOrSignUp = this.showLoginOrSignUp.bind(this);
   }
@@ -63,12 +64,39 @@ class App extends Component {
     console.log('current id', this.state.loginSignupButtonIsClicked)
   }
 
+  //can also use this for the logout component
+  updateStatus(status) {
+    this.setState({
+      isLoggedIn: status
+    })
+  }
+
+  updateUserInfo(firstName, lastName, userName, email) {
+    this.setState({
+      user: {
+        firstName: firstName,
+        lastName: lastName,
+        userName: userName,
+        email: email
+      }
+    })
+    //make a get req to db for the jobs and change jobs state?
+  }
+
   showLoginOrSignUp(){
     const view = this.state.loginSignupButtonIsClicked
     console.log('current state',view )
 
     if (view) {
-      return <LoginSignUp view={view} displayLoginSignup={this.displayLoginSignup.bind(this)}/>
+      console.log('eggs')
+      return (
+        <LoginSignUp
+          view={view}
+          displayLoginSignup={this.displayLoginSignup.bind(this)}
+          submitData={this.submitData.bind(this) }
+          isLoggedIn={this.updateStatus.bind(this)}
+          updateUserInfo = {this.updateUserInfo.bind(this)}/>
+          )
     }
   }
 
