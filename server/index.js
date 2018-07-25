@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const util = require('./helpers/utilities.js');
 const app = express();
 const createUser = require('../db/index.js').createUser;
+const jobs = require('./jobs');
 
 //Setup Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,7 +23,8 @@ app.use(
 app.use(express.static(__dirname + '/../client/dist'));
 
 //Establish routes
-app.post('/jobs', require('./jobs.js'));
+app.post('/jobs', jobs);
+app.get('/jobs', jobs);
 
 app.get('/', util.checkUser, (req, res) => {
   //Alter to reflect/establish state
