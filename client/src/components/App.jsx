@@ -22,11 +22,12 @@ class App extends Component {
       jobs: [],
       loginSignupButtonIsClicked: false,
       isLoggedIn: false,
-      view: false
+      view: false,
+      createView: false
     };
     this.showLoginOrSignUp = this.showLoginOrSignUp.bind(this);
-    this.submitData.bind(this);
-    this.closeDialog.bind(this);
+    this.submitData = this.submitData.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   retrieveData(endpoint, params, callback) {
@@ -103,7 +104,7 @@ class App extends Component {
         <LoginSignUp
           view={view}
           displayLoginSignup={this.displayLoginSignup.bind(this)}
-          submitData={this.submitData.bind(this) }
+          submitData={this.submitData}
           isLoggedIn={this.updateStatus.bind(this)}
           updateUserInfo = {this.updateUserInfo.bind(this)}
           getJobData={this.getJobData.bind(this)}
@@ -124,22 +125,15 @@ class App extends Component {
     }
   }
 
-  showLoginOrSignUp() {
-    const view = this.state.loginSignupButtonIsClicked;
-    console.log('current state', view);
-
-    if (view) {
-      return <LoginSignUp view={view} displayLoginSignup={this.displayLoginSignup.bind(this)} />;
-    }
-
+  showCreate() {
     console.log(this.state);
 
-    if (this.state.view === 'create') {
+    if (this.state.createView === 'create') {
       return (
         <CreateJob
-          view={this.state.view}
+          view={this.state.createView}
           onSubmit={this.createNewJob.bind(this)}
-          onClose={this.closeDialog.bind(this)}
+          onClose={this.closeCreate.bind(this)}
         />
       );
     }
@@ -147,7 +141,8 @@ class App extends Component {
 
   displayCreateJob(option) {
     this.setState({
-      view: option,
+      createView: option,
+      //? Path for function below: 
       loginSignupButtonIsClicked: false
     });
   }
@@ -156,7 +151,7 @@ class App extends Component {
     this.submitData('/jobs', job, response => {
       console.log(response);
       this.setState({
-        view: ''
+        createView: ''
       });
     });
   }
@@ -164,6 +159,12 @@ class App extends Component {
   closeDialog() {
     this.setState({
       view: ''
+    });
+  }
+
+  closeCreate() {
+    this.setState({
+      createView: ''
     });
   }
 
@@ -182,6 +183,9 @@ class App extends Component {
         </Fragment>
         <div className="signInRegister">
           {this.showLoginOrSignUp()}
+        </div>
+        <div className="createJob">
+          {this.showCreate()}
         </div>
       </div>
     );

@@ -40,7 +40,7 @@ const logoGo = (domain, cb) => {
   let cleanDomain = domain.split('www.')[1];
 
   axios.get(`https://logo.clearbit.com/${cleanDomain}`)
-  .then(logo => cb(null, logo))
+  .then(logo => console.log('I AM THE LOG: ', JSON.parse(logo.data)))
   .catch(error => cb(error, null));
 }
 

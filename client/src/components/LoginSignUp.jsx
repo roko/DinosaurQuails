@@ -74,7 +74,7 @@ class LoginSignUp extends React.Component {
       password: document.getElementsByClassName('password')[0].value
     }
 
-    this.props.submitData('/signup', requestData, ((response, err) => {
+    this.props.submitData('/signup', requestData, (response, err) => {
         console.log('got a new account', response.data)
         if (response.data.messageCode === 101 || response.data.messageCode === 102) {
           this.setState({
@@ -86,7 +86,7 @@ class LoginSignUp extends React.Component {
           this.props.displayLoginSignup(false);
         }
       }
-    ))
+    )
   }
 
   render() {

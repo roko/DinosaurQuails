@@ -11,9 +11,9 @@ class JobMin extends Component {
 
   render() {
     return (
-      <GridListTile key={job.img}>
-        <img src={job.img} alt={job.title} />
-        <GridListTileBar title={job.company.name} subtitle={<span>{job.company.jobTitle}</span>} actionIcon="FILLIN" />
+      <GridListTile key={this.props.job._id}>
+        <img src={this.props.job.logoUrl} alt={this.props.job.company.name} />
+        <GridListTileBar title={this.props.job.company.name} subtitle={<span>{this.props.job.company.jobTitle}</span>} actionIcon="FILLIN" />
       </GridListTile>
     )
   }
