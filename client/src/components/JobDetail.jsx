@@ -150,7 +150,7 @@ JobDetail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-// We need an intermediary variable for handling the recursive nesting.
+// We need an intermediary variable for hand`ling the recursive nesting.
 const JobDetailWrapped = withStyles(styles)(JobDetail);
 
 export default JobDetailWrapped;

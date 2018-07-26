@@ -11,18 +11,13 @@ class JobMin extends Component {
 
   render() {
     return (
-      <GridListTile key={this.props.job._id}>
-        <img
-        src="https://logo.clearbit.com/segment.com?size=200&greyscale=true"
-        alt={this.props.job.company.webSite} />
-        <GridListTileBar
-        title={this.props.job.company.name}
-        subtitle={<span>{this.props.job.company.jobTitle}</span>}
-        actionIcon="FILL IN"
-        />
+      <GridListTile key={job.img}>
+        <img src={job.img} alt={job.title} />
+        <GridListTileBar title={job.company.name} subtitle={<span>{job.company.jobTitle}</span>} actionIcon="FILLIN" />
       </GridListTile>
     )
   }
 }
 
 export default JobMin;
+
