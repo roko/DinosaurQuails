@@ -121,10 +121,12 @@ class App extends Component {
       this.retrieveData('/jobs', {params: {userId: this.state.user.id}}, ((response, err) => {
         this.setState({
           jobs: response.data,
-          filteredJobs: response.data
         });
       }));
     }
+    this.setState({
+      jobs: []
+    })
   }
 
   showCreate() {
@@ -225,6 +227,8 @@ class App extends Component {
             displayLoginSignup={this.displayLoginSignup.bind(this)}
             isLoggedIn={this.state.isLoggedIn}
             displayCreateJob={this.displayCreateJob.bind(this)}
+            updateStatus={this.updateStatus.bind(this)}
+            updateUserInfo={this.updateUserInfo.bind(this)}
           />
           <SelectBar changeJobFilter={this.changeJobFilter.bind(this)}/>
 
