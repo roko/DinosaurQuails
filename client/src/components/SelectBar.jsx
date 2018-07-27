@@ -28,10 +28,10 @@ class SelectBar extends Component {
     return (
       <Paper style={styles.root}>
         <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textColor="primary" centered >
-          <Tab label="All" />
-          <Tab label="Pending" />
-          <Tab label="Offered" />
-          <Tab label="Rejected" />
+          <Tab label="All" onClick={() => this.props.changeJobFilter('all')}/>
+          <Tab label="Pending" onClick={() => this.props.changeJobFilter('pending')}/>
+          <Tab label="Offered" onClick={() => this.props.changeJobFilter('offered')}/>
+          <Tab label="Rejected" onClick={() => this.props.changeJobFilter('rejected')}/>
         </Tabs>
       </Paper>
     );
