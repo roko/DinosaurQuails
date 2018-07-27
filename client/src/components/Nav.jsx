@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Banner from './Banner.jsx';
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@material-ui/core';
 
 const styles = {
@@ -22,11 +23,8 @@ const Nav = props => (
         <div id="nav" style={styles.root}>
         <AppBar position="static" style={styles.appbar}>
           <Toolbar variant="dense" >
-            <IconButton id="Menu" color="inherit" aria-label="Menu" style={styles.menuButton}>
-              <div>menu</div>
-            </IconButton>
-            <Typography variant="headline" color="inherit" id="logo" style={styles.flex}>
-              <div>job.concat</div>
+               <Typography variant="headline" color="inherit" id="banner" style={styles.flex}>
+              <div><Banner /></div>
             </Typography>
             {props.isLoggedIn ? (
               <div>
@@ -34,7 +32,7 @@ const Nav = props => (
                   Create
                 </Button>
                 <Button color="inherit" id="logout" onClick={() => props.displayLoginSignup('logout')}>Logout</Button>
-              </div> 
+              </div>
               ) : (
             <div>
               <Button color="inherit" id="login" onClick={() => props.displayLoginSignup('login')}>Login</Button>
