@@ -103,7 +103,7 @@ class LoginSignUp extends React.Component {
     console.log('view', this.props.view)
     if (this.props.view === 'login') {
       return (
-        <div>
+        <React.Fragment>
           <Dialog
             open={!!this.props.view}
             aria-labelledby="alert-dialog-title"
@@ -115,18 +115,18 @@ class LoginSignUp extends React.Component {
 
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <div>
+              <React.Fragment>
                 {MessageToUser}
-              </div>
-              <div>
+              </React.Fragment>
+              <React.Fragment>
                 Email:
                 <input type="text" className="email" name="email" required/>
-              </div>
+              </React.Fragment>
 
-              <div>
+              <React.Fragment>
                 Password:
                <input type="password" className="password" name="password" required/>
-              </div>
+              </React.Fragment>
 
 
             </DialogContentText>
@@ -140,13 +140,13 @@ class LoginSignUp extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </React.Fragment>
         )
     }
 
     if (this.props.view === 'register') {
       return (
-       <div>
+       <React.Fragment>
         <Dialog
           open={!!this.props.view}
           aria-labelledby="alert-dialog-title"
@@ -156,30 +156,30 @@ class LoginSignUp extends React.Component {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
 
-              <div>
+              <React.Fragment>
                 First Name:
                 <input type="text" className="firstName" name="firstName" required/>
-              </div>
+              </React.Fragment>
 
-              <div>
+              <React.Fragment>
                 LastName:
                 <input type="text" className="lastName" name="lastName" required/>
-              </div>
+              </React.Fragment>
 
-              <div>
+              <React.Fragment>
                 Username:
                 <input type="text" className="userName" name="userName" required/>
-              </div>
+              </React.Fragment>
 
-              <div>
+              <React.Fragment>
                 Email:
                <input type="text" className="email" name="email" required/>
-              </div>
+              </React.Fragment>
 
-              <div>
+              <React.Fragment>
                 Password:
                <input type="text" className="password" name="password" required/>
-              </div>
+              </React.Fragment>
 
             </DialogContentText>
           </DialogContent>
@@ -192,7 +192,7 @@ class LoginSignUp extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </React.Fragment>
         )
     }
   }
