@@ -78,7 +78,9 @@ let jobSchema = mongoose.Schema({
   company: {
     name: String,
     jobTitle: String,
-    webSite: String
+    webSite: String,
+    logoUrl: String,
+    payRange: String
   },
   contact: {
     email: String,
@@ -95,7 +97,7 @@ let jobSchema = mongoose.Schema({
 // ADD JOB MODEL
 let Job = mongoose.model('Job', jobSchema);
 
-let createJob = (fieldInfo, callback) => {
+let createJob = (fieldInfo, callback) => { 
   console.log('fieldInfo', fieldInfo);
 
   let jobOpportunity = new Job({
@@ -103,7 +105,10 @@ let createJob = (fieldInfo, callback) => {
     company: {
       name: fieldInfo.name,
       jobTitle: fieldInfo.jobTitle,
-      webSite: fieldInfo.webSite
+      webSite: fieldInfo.webSite,
+      logoUrl: fieldInfo.logoUrl,  //* add to field info
+      payRange: fieldInfo.payRange //* add to feild info
+     
     },
     contact: {
       email: fieldInfo.email,

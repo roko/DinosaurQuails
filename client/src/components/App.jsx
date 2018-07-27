@@ -4,6 +4,7 @@ import SelectBar from './SelectBar.jsx';
 import JobList from './JobList.jsx';
 import LoginSignUp from './LoginSignUp.jsx';
 import CreateJob from './CreateJob.jsx';
+import JobDetailWrapped from './JobDetail.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -11,7 +12,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      session: false,
       user: {
         firstName: '',
         lastName: '',
@@ -20,13 +20,16 @@ class App extends Component {
         id: ''
       },
       jobs: [],
+      selectedJob: null,
+      detailOpen: false,
       loginSignupButtonIsClicked: false,
       isLoggedIn: false,
-      view: false
+      view: false,
+      createView: false
     };
     this.showLoginOrSignUp = this.showLoginOrSignUp.bind(this);
-    this.submitData.bind(this);
-    this.closeDialog.bind(this);
+    this.submitData = this.submitData.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   retrieveData(endpoint, params, callback) {
@@ -103,7 +106,7 @@ class App extends Component {
         <LoginSignUp
           view={view}
           displayLoginSignup={this.displayLoginSignup.bind(this)}
-          submitData={this.submitData.bind(this) }
+          submitData={this.submitData}
           isLoggedIn={this.updateStatus.bind(this)}
           updateUserInfo = {this.updateUserInfo.bind(this)}
           getJobData={this.getJobData.bind(this)}
@@ -124,22 +127,16 @@ class App extends Component {
     }
   }
 
-  showLoginOrSignUp() {
-    const view = this.state.loginSignupButtonIsClicked;
-    console.log('current state', view);
-
-    if (view) {
-      return <LoginSignUp view={view} displayLoginSignup={this.displayLoginSignup.bind(this)} />;
-    }
-
+  showCreate() {
     console.log(this.state);
 
-    if (this.state.view === 'create') {
+    if (this.state.createView === 'create') {
       return (
         <CreateJob
-          view={this.state.view}
+          submitData={this.submitData}
+          view={this.state.createView}
           onSubmit={this.createNewJob.bind(this)}
-          onClose={this.closeDialog.bind(this)}
+          onClose={this.closeCreate.bind(this)}
         />
       );
     }
@@ -147,7 +144,8 @@ class App extends Component {
 
   displayCreateJob(option) {
     this.setState({
-      view: option,
+      createView: option,
+      //? Path for function below: 
       loginSignupButtonIsClicked: false
     });
   }
@@ -155,16 +153,59 @@ class App extends Component {
   createNewJob(job) {
     this.submitData('/jobs', job, response => {
       console.log(response);
+      this.retrieveData('/jobs', (res) => {
+        this.setState({
+          jobs: res.data
+        })
+      })
       this.setState({
-        view: ''
+        createView: ''
       });
     });
   }
+
+  //? Login and Signup Functions:
 
   closeDialog() {
     this.setState({
       view: ''
     });
+  }
+
+  //? Create Job Functions:
+
+  closeCreate() {
+    this.setState({
+      createView: ''
+    });
+  }
+
+  //? Job Detail Functions:
+
+  detailOpen(currentJob) {
+    this.setState({
+      selectedJob: currentJob,
+      detailOpen: true
+    })
+  }
+
+  detailClose() {
+    this.setState({
+      selectedJob: {},
+      detailOpen: false
+    })
+  }
+
+  showDetail() {
+    if(this.state.detailOpen === true) {
+      return 
+      <JobDetailWrapped 
+      getJobData={this.getJobData.bind(this)}
+      detailClose={this.detailClose.bind(this)} 
+      job={this.state.selectedJob} 
+      saveChanges={this.updateData.bind(this)}  
+      />
+    }
   }
 
   render() {
@@ -178,10 +219,16 @@ class App extends Component {
           />
           <SelectBar />
 
-          <JobList jobData={this.state.jobs} />
+          <JobList detailOpen={this.detailOpen.bind(this)} jobData={this.state.jobs} />
         </Fragment>
         <div className="signInRegister">
           {this.showLoginOrSignUp()}
+        </div>
+        <div className="createJob">
+          {this.showCreate()}
+        </div>
+        <div className="jobDetail">
+          {this.showDetail()}
         </div>
       </div>
     );

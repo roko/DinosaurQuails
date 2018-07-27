@@ -1,5 +1,7 @@
 const express = require('express');
 const db = require('../db/index.js');
+// const util = require('./helpers/utilities.js');
+
 let router = express.Router();
 
 const jobHelperQuery = (req, res) => {
@@ -33,18 +35,30 @@ const jobPoster = (req, res) => {
     interviewedDate: req.body.interviewedDate || new Date(),
     coverLetterUrl: req.body.coverLetterUrl || 'none',
     state: req.body.state || 'none',
-    userId: req.body.userId
+    userId: req.body.userId,
+    payRange: req.body.payRange || '$1,000,000,000',
+    logoUrl: 'https://i.imgur.com/usLTbBq.png'
   };
 
-  //send req.miscFields to DB for new instance
-  db.createJob(fieldInfo, (err, data) => {
-    if (err) {
-      console.log('Job Saver Error: ', err);
-      res.sendStatus(500);
-    } else {
-      res.send('job saved!');
-    }
-  });
+  // util.logoGo(fieldInfo.webSite, (error, logoUrl) => {
+  //   //If error is received (404)
+  //   if(error) console.log('404, no image:', error)
+  //   //If !logoUrl, set to default https://imgur.com/a/C9WPyup
+  //   if(!logoUrl) fieldInfo['logoUrl'] =  'https://imgur.com/a/C9WPyup'
+  //   //Else set key on fieldInfo object with current logoUrl
+  //   else {
+  //   fieldInfo['logoUrl'] = logoUrl;
+  //   }
+  //   //send req.miscFields to DB for new instance
+  // });
+      db.createJob(fieldInfo, (err, data) => {
+        if (err) {
+          console.log('Job Saver Error: ', err);
+          res.sendStatus(500);
+        } else {
+          res.send('job saved!');
+        }
+      });
 };
 
 router.post('/jobs', jobPoster);

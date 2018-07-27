@@ -6,7 +6,6 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import JobMin from 'JobMin.jsx';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -39,26 +38,50 @@ const styles = theme => ({
 });
 
 class JobDetail extends React.Component {
-  state = {
-    open: false,
-    view: 'detail',
-  };
+  constructor(props) {
+    super(props)
+      state = {
+      view: 'detail',
+      appliedDate: '',
+      state: '',
+      payRange: ''
+    };
+  }
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
+  update(){
+    let updatedData ={
+      appliedDate: this.state.appliedDate,
+      state: this.state.state,    
+      payRange: this.state.payRange     
+    }
+    this.props.updatedData('/job', updatedData, (res) => {
+     this.props.getJobData();
+     this.props.detailClose();
+    })
+  }
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+
+  handleChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+  // handleOpen = () => {
+  //   this.setState({ open: true });
+  // };
+
+  // handleClose = () => {
+  //   this.setState({ open: false });
+  // };
 
   render() {
     const { classes } = this.props;
+    const { company, contact, appliedDate, postDate, interviewDate, state } = this.props.job
     if (this.state.view === 'detail') {
       return (
         <div>
           {/* <Typography gutterBottom>Click to get the full Modal experience!</Typography> */}
-          <Button onClick={this.handleOpen}>INFO</Button>
+          {/* <Button onClick={this.handleOpen}>INFO</Button> */}
           <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
@@ -67,18 +90,21 @@ class JobDetail extends React.Component {
           >
             <div style={getModalStyle()} className={classes.paper}>
               <Typography variant="title" id="modal-title">
-                Available Position
+                {company.name}
               </Typography>
               <Typography variant="subheading" id="simple-modal-description">
-                Description of job in detail modal.
+                {company.jobTitle}
               </Typography>
               <Typography variant="caption" id="simple-modal-description">
-                <p> Entry Date:  </p>
-                <p> Status:  </p>
-                <p> Salary: </p>
+                <p> Entry Date: {appliedDate}  </p>
+                <p> Status: {state}  </p>
+                <p> Salary: {company.payRange} </p>
               </Typography>
               <Button className={classes.pallete} onClick={() => this.setState({ view: 'edit' })} align="inherit" variant="subheading">
                 EDIT
+            </Button>
+            <Button className={classes.pallete} onClick={() => this.props.detailClose()} align="inherit" variant="subheading">
+                CLOSE
             </Button>
             </div>
           </Modal>
@@ -89,7 +115,7 @@ class JobDetail extends React.Component {
       return (
         <div>
           {/* <Typography gutterBottom>Click to get the full Modal experience!</Typography> */}
-          <Button onClick={this.handleOpen}>INFO</Button>
+          {/* <Button onClick={this.handleOpen}>INFO</Button> */}
           <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
@@ -98,46 +124,58 @@ class JobDetail extends React.Component {
           >
             <div style={getModalStyle()} className={classes.paper}>
               <Typography variant="title" id="modal-title">
-                Available Position
+              {company.name}
           </Typography>
               <Typography variant="subheading" id="simple-modal-description">
-                Description of job in detail modal.
+              {company.jobTitle}
           </Typography>
               <form className={classes.container} noValidate autoComplete="off">
                 <TextField
+                  onChange={this.handleChange}
                   id="full-width"
+                  name="appliedDate"
                   label="Date"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  placeholder="Original Date"
+                  placeholder={appliedDate}
                   fullWidth
                   margin="normal"
                 />
                 <TextField
+                  onChange={this.handleChange}
                   id="full-width"
+                  name="state"
                   label="Status"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  placeholder="Applied"
+                  placeholder={state}
                   fullWidth
                   margin="normal"
                 />
                 <TextField
+                  onChange={this.handleChange}
                   id="full-width"
+                  name="payRange"
                   label="Salary"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  placeholder="$1,000,000,000"
+                  placeholder={company.payRange}
                   fullWidth
                   margin="normal"
                 />
               </form>
               <Button className={classes.pallete} onClick={() => this.setState({ view: 'detail' })} align="inherit" variant="subheading">
-                CANCEL
-        </Button>
+                BACK
+             </Button>
+             <Button className={classes.pallete} onClick={() => this.props.detailClose()} align="inherit" variant="subheading">
+                CLOSE
+            </Button>
+             <Button className={classes.pallete} onClick={this.update} align="inherit" variant="subheading">
+                UPDATE 
+             </Button>                    
             </div>
           </Modal>
         </div>
@@ -150,7 +188,7 @@ JobDetail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-// We need an intermediary variable for handling the recursive nesting.
+// We need an intermediary variable for hand`ling the recursive nesting.
 const JobDetailWrapped = withStyles(styles)(JobDetail);
 
 export default JobDetailWrapped;
