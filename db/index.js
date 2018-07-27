@@ -134,14 +134,33 @@ let createJob = (fieldInfo, callback) => {
 };
 
 const getJobs = (query, callback) => {
+  console.log(query);
   Job.find(query)
     .sort({postDate: 'desc'})
     .then(jobs => callback(null, jobs))
     .catch(err => callback(err, null));
 }
+
 //EXPORT MODELS
 
+const updateJob = (update, callback) => {
+  // take info from update job except job id
+  // use job id to search for specific job by id
+  Job.findByIdAndUpdate(update.id, update.edits)
+    .then(result => callback(null, result))
+    .catch(err => callback(err, null));
+}
+
+const removeJob = (remove, callback) => {
+  // just pass the _.id through.
+  Job.findByIdAndDelete(remove._id)
+    .then(result => callback(null, result))
+    .catch(err => callback(err, null));
+}
+
 // module.exports.db = db;
+module.exports.updateJob = updateJob;
+module.exports.removeJob = removeJob;
 module.exports.createUser = createUser;
 module.exports.login = login;
 module.exports.createJob = createJob;
