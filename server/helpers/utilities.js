@@ -35,16 +35,16 @@ const checkUser = (req, res, next) => {
 };
 
 //! add detailed explanation in docs for fantastic name :)
-const logoGo = (domain, cb) => {
+// const logoGo = (domain, cb) => {
 
-  let cleanDomain = domain.split('www.')[1];
+//*   let cleanDomain = domain.split('www.')[1];
 
-  axios.get(`https://logo.clearbit.com/${cleanDomain}`)
-  .then(logo => console.log('I AM THE LOG: ', JSON.parse(logo.data)))
-  .catch(error => cb(error, null));
-}
+//*   axios.get(`https://logo.clearbit.com/${cleanDomain}`)
+//   .then(logo => console.log('I AM THE LOG: ', JSON.parse(logo.data)))
+//   .catch(error => cb(error, null));
+// }
 
-module.exports.logoGo = logoGo;
+// module.exports.logoGo = logoGo;
 module.exports.createSession = createSession;
 module.exports.isLoggedIn = isLoggedIn;
 module.exports.checkUser = checkUser;

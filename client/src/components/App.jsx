@@ -131,6 +131,7 @@ class App extends Component {
     if (this.state.createView === 'create') {
       return (
         <CreateJob
+          submitData={this.submitData}
           view={this.state.createView}
           onSubmit={this.createNewJob.bind(this)}
           onClose={this.closeCreate.bind(this)}
@@ -150,6 +151,11 @@ class App extends Component {
   createNewJob(job) {
     this.submitData('/jobs', job, response => {
       console.log(response);
+      this.retrieveData('/jobs', (res) => {
+        this.setState({
+          jobs: res.data
+        })
+      })
       this.setState({
         createView: ''
       });
