@@ -129,6 +129,7 @@ class App extends Component {
     if (this.state.createView === 'create') {
       return (
         <CreateJob
+        user={this.state.user.id}
           submitData={this.submitData}
           view={this.state.createView}
           onSubmit={this.createNewJob.bind(this)}
@@ -141,18 +142,18 @@ class App extends Component {
   displayCreateJob(option) {
     this.setState({
       createView: option,
-      //? Path for function below: 
+      //? Path for function below:
       loginSignupButtonIsClicked: false
     });
   }
 
   createNewJob(job) {
-    this.submitData('/jobs', job, response => {
-      this.retrieveData('/jobs', (res) => {
+    this.submitData('/jobs', job, (response, err) => {
+       this.retrieveData('/jobs', {userId: this.state.user.id}, ((response, err) => {
         this.setState({
-          jobs: res.data
-        })
-      })
+          jobs: response.data
+        });
+      }));
       this.setState({
         createView: ''
       });
@@ -193,13 +194,13 @@ class App extends Component {
 
   showDetail() {
     if(this.state.detailOpen) {
-      return 
-      <JobDetailWrapped 
+      return
+      <JobDetailWrapped
       view={this.state.detailOpen}
       getJobData={this.getJobData.bind(this)}
-      detailClose={this.detailClose.bind(this)} 
-      job={this.state.selectedJob} 
-      saveChanges={this.updateData.bind(this)}  
+      detailClose={this.detailClose.bind(this)}
+      job={this.state.selectedJob}
+      saveChanges={this.updateData.bind(this)}
       />
     }
   }
