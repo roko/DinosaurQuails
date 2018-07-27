@@ -24,6 +24,7 @@ const jobPoster = (req, res) => {
   console.log('what is in the request', req.body);
 
   let fieldInfo = {
+    userId: req.body.userId || '66666666',
     name: req.body.name || 'none',
     jobTitle: req.body.title || 'none',
     webSite: req.body.website || 'none',

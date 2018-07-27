@@ -13,6 +13,7 @@ class CreateJob extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: this.props.user,
             name: '',
             title: '',
             website: '',
