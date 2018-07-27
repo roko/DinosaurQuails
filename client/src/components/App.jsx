@@ -20,6 +20,7 @@ class App extends Component {
         id: ''
       },
       jobs: [],
+      filter: 'all',
       selectedJob: null,
       detailOpen: false,
       loginSignupButtonIsClicked: false,
@@ -119,7 +120,8 @@ class App extends Component {
     if(this.state.isLoggedIn) {
       this.retrieveData('/jobs', {params: {userId: this.state.user.id}}, ((response, err) => {
         this.setState({
-          jobs: response.data
+          jobs: response.data,
+          filteredJobs: response.data
         });
       }));
     }
@@ -137,6 +139,14 @@ class App extends Component {
         />
       );
     }
+  }
+
+  changeJobFilter(status) {
+    console.log('whats the filter', status)
+
+    this.setState({
+      filter: status
+    })
   }
 
   displayCreateJob(option) {
@@ -216,9 +226,9 @@ class App extends Component {
             isLoggedIn={this.state.isLoggedIn}
             displayCreateJob={this.displayCreateJob.bind(this)}
           />
-          <SelectBar />
+          <SelectBar changeJobFilter={this.changeJobFilter.bind(this)}/>
 
-          <JobList detailOpen={this.detailOpen.bind(this)} jobData={this.state.jobs} />
+          <JobList detailOpen={this.detailOpen.bind(this)} jobData={this.state.jobs} filter={this.state.filter}/>
         </Fragment>
         <div className="signInRegister">
           {this.showLoginOrSignUp()}
