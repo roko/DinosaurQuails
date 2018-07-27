@@ -30,6 +30,8 @@ class App extends Component {
     this.showLoginOrSignUp = this.showLoginOrSignUp.bind(this);
     this.submitData = this.submitData.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
+    this.detailOpen = this.detailOpen.bind(this);
+    this.showDetail = this.showDetail.bind(this);
   }
 
   retrieveData(endpoint, params, callback) {
@@ -73,12 +75,10 @@ class App extends Component {
     this.setState({
       loginSignupButtonIsClicked: id
     });
-    console.log('current id', this.state.loginSignupButtonIsClicked);
   }
 
   //can also use this for the logout component
   updateStatus(status) {
-    console.log('did i log in', status);
     this.setState({
       isLoggedIn: status
     })
@@ -98,7 +98,6 @@ class App extends Component {
 
   showLoginOrSignUp(){
     const view = this.state.loginSignupButtonIsClicked
-    console.log('current state',view )
 
     if (view) {
       console.log('eggs')
@@ -119,7 +118,6 @@ class App extends Component {
   getJobData() {
     if(this.state.isLoggedIn) {
       this.retrieveData('/jobs', {userId: this.state.user.id}, ((response, err) => {
-        console.log('got job data', response.data)
         this.setState({
           jobs: response.data
         });
@@ -128,8 +126,6 @@ class App extends Component {
   }
 
   showCreate() {
-    console.log(this.state);
-
     if (this.state.createView === 'create') {
       return (
         <CreateJob
@@ -152,7 +148,6 @@ class App extends Component {
 
   createNewJob(job) {
     this.submitData('/jobs', job, response => {
-      console.log(response);
       this.retrieveData('/jobs', (res) => {
         this.setState({
           jobs: res.data
@@ -197,9 +192,10 @@ class App extends Component {
   }
 
   showDetail() {
-    if(this.state.detailOpen === true) {
+    if(this.state.detailOpen) {
       return 
       <JobDetailWrapped 
+      view={this.state.detailOpen}
       getJobData={this.getJobData.bind(this)}
       detailClose={this.detailClose.bind(this)} 
       job={this.state.selectedJob} 
