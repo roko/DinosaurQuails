@@ -4,6 +4,7 @@ import SelectBar from './SelectBar.jsx';
 import JobList from './JobList.jsx';
 import LoginSignUp from './LoginSignUp.jsx';
 import CreateJob from './CreateJob.jsx';
+import JobDetailWrapped from './JobDetail.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -11,7 +12,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      session: false,
       user: {
         firstName: '',
         lastName: '',
@@ -20,6 +20,8 @@ class App extends Component {
         id: ''
       },
       jobs: [],
+      selectedJob: null,
+      detailOpen: false,
       loginSignupButtonIsClicked: false,
       isLoggedIn: false,
       view: false,
@@ -162,16 +164,48 @@ class App extends Component {
     });
   }
 
+  //? Login and Signup Functions:
+
   closeDialog() {
     this.setState({
       view: ''
     });
   }
 
+  //? Create Job Functions:
+
   closeCreate() {
     this.setState({
       createView: ''
     });
+  }
+
+  //? Job Detail Functions:
+
+  detailOpen(currentJob) {
+    this.setState({
+      selectedJob: currentJob,
+      detailOpen: true
+    })
+  }
+
+  detailClose() {
+    this.setState({
+      selectedJob: {},
+      detailOpen: false
+    })
+  }
+
+  showDetail() {
+    if(this.state.detailOpen === true) {
+      return 
+      <JobDetailWrapped 
+      getJobData={this.getJobData.bind(this)}
+      detailClose={this.detailClose.bind(this)} 
+      job={this.state.selectedJob} 
+      saveChanges={this.updateData.bind(this)}  
+      />
+    }
   }
 
   render() {
@@ -185,13 +219,16 @@ class App extends Component {
           />
           <SelectBar />
 
-          <JobList jobData={this.state.jobs} />
+          <JobList detailOpen={this.detailOpen.bind(this)} jobData={this.state.jobs} />
         </Fragment>
         <div className="signInRegister">
           {this.showLoginOrSignUp()}
         </div>
         <div className="createJob">
           {this.showCreate()}
+        </div>
+        <div className="jobDetail">
+          {this.showDetail()}
         </div>
       </div>
     );

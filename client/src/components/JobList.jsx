@@ -16,11 +16,11 @@ const styles = {
     height: 450,
   },
 }
-const JobList = ({jobData}) => (
+const JobList = ({jobData, detailOpen}) => (
   <div style={styles.root}>
       <GridList cols={3} cellHeight={180} style={styles.gridList} >
         {jobData.map(job => (
-          <JobMin job={job} />
+          <JobMin key={job._id} detailOpen={detailOpen} job={job} />
         ))}
       </GridList>
   </div>
