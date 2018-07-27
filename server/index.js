@@ -7,6 +7,7 @@ const util = require('./helpers/utilities.js');
 const app = express();
 const createUser = require('../db/index.js').createUser;
 const jobs = require('./jobs');
+const job = require('./job');
 
 //Setup Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,13 +24,15 @@ app.use(
 app.use(express.static(__dirname + '/../client/dist'));
 
 //Establish routes
+app.get('/', util.checkUser, (req, res) => {
+  // Just checks verification status.
+});
+
 app.post('/jobs', jobs);
 app.get('/jobs', jobs);
 
-app.get('/', util.checkUser, (req, res) => {
-  //Alter to reflect/establish state
-  // res.render('index');
-});
+app.put('/job', job);
+app.delete('/job', job);
 
 app.post('/signup', require('./signup.js'));
 app.get('/signup', require('./signup.js'));
@@ -39,16 +42,15 @@ app.get('/login', require('./login.js'));
 
 app.get('/logout', function(req, res) {
   req.session.destroy(function() {
-    // res.redirect('/');
-    //send confirmation that session is destroyed & state change trigger
+    res.status(200).json({message: 'Successful Logout'});
   });
 });
 
-
+const PORT = process.env.PORT || 3000;
 
 //Establish port#
-app.listen(3000, function() {
-  console.log('now listening on port 3000');
+app.listen(PORT, function() {
+  console.log('Get the Job Cat at port: ', PORT);
 });
 
 //save update

@@ -5,6 +5,8 @@ const db = require('../db/index.js');
 let router = express.Router();
 
 const jobHelperQuery = (req, res) => {
+
+  console.log(req.query);
   db.getJobs(req.query, (err, jobs) => {
     if (err) {
       console.log(err);
@@ -52,24 +54,18 @@ const jobPoster = (req, res) => {
   //   }
   //   //send req.miscFields to DB for new instance
   // });
-      db.createJob(fieldInfo, (err, data) => {
-        if (err) {
-          console.log('Job Saver Error: ', err);
-          res.sendStatus(500);
-        } else {
-          res.send('job saved!');
-        }
-      });
+  db.createJob(fieldInfo, (err, data) => {
+    if (err) {
+      console.log('Job Saver Error: ', err);
+      res.sendStatus(500);
+    } else {
+      res.send('job saved!');
+    }
+  });
 };
 
 router.post('/jobs', jobPoster);
 
 router.get('/jobs', jobHelperQuery);
-
-router.delete('/jobs', (req, res) => {
-  // add delete function to database
-  // will rely upon params to delete by Id
-});
-
 
 module.exports = router;

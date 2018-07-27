@@ -117,7 +117,7 @@ class App extends Component {
   //this function gets called when user logs in, adds job, updates/deletes job
   getJobData() {
     if(this.state.isLoggedIn) {
-      this.retrieveData('/jobs', {userId: this.state.user.id}, ((response, err) => {
+      this.retrieveData('/jobs', {params: {userId: this.state.user.id}}, ((response, err) => {
         this.setState({
           jobs: response.data
         });
@@ -149,7 +149,7 @@ class App extends Component {
 
   createNewJob(job) {
     this.submitData('/jobs', job, (response, err) => {
-       this.retrieveData('/jobs', {userId: this.state.user.id}, ((response, err) => {
+       this.retrieveData('/jobs', {params: {userId: this.state.user.id}}, ((response, err) => {
         this.setState({
           jobs: response.data
         });
