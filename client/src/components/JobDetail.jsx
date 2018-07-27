@@ -40,19 +40,20 @@ const styles = theme => ({
 class JobDetail extends React.Component {
   constructor(props) {
     super(props)
-      state = {
+      this.state = {
       view: 'detail',
       appliedDate: '',
       state: '',
-      payRange: ''
+      payRange: '',
+      open: true
     };
   }
 
   update(){
     let updatedData ={
       appliedDate: this.state.appliedDate,
-      state: this.state.state,    
-      payRange: this.state.payRange     
+      state: this.state.state,
+      payRange: this.state.payRange
     }
     this.props.updatedData('/job', updatedData, (res) => {
      this.props.getJobData();
@@ -174,8 +175,8 @@ class JobDetail extends React.Component {
                 CLOSE
             </Button>
              <Button className={classes.pallete} onClick={this.update} align="inherit" variant="subheading">
-                UPDATE 
-             </Button>                    
+                UPDATE
+             </Button>
             </div>
           </Modal>
         </div>

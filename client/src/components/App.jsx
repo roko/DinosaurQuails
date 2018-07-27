@@ -179,6 +179,7 @@ class App extends Component {
   //? Job Detail Functions:
 
   detailOpen(currentJob) {
+    console.log('currentjob', currentJob)
     this.setState({
       selectedJob: currentJob,
       detailOpen: true
@@ -194,7 +195,7 @@ class App extends Component {
 
   showDetail() {
     if(this.state.detailOpen) {
-      return
+      return (
       <JobDetailWrapped
       view={this.state.detailOpen}
       getJobData={this.getJobData.bind(this)}
@@ -202,6 +203,7 @@ class App extends Component {
       job={this.state.selectedJob}
       saveChanges={this.updateData.bind(this)}
       />
+        )
     }
   }
 
