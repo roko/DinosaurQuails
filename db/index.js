@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const hash = require('./helper.js');
 const bcrypt = require('bcrypt-nodejs');
 
-mongoose.connect('mongodb://localhost/dinasour');
+const DB = process.env.MONGODB_URI || 'mongodb://localhost/dinasour'
+
+mongoose.connect(DB);
 
 const db = mongoose.connection;
 
