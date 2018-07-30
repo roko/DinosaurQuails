@@ -9,7 +9,7 @@ const styles = {
 }
 
 const urlFix = (url) => {
-  let cleanDomain = domain.split('www.')[1];
+  let cleanDomain = url.split('www.')[1];
   return `https://logo.clearbit.com/${cleanDomain}`;
 }
 

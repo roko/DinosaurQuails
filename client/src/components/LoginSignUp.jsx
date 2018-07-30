@@ -178,7 +178,7 @@ class LoginSignUp extends React.Component {
 
               <React.Fragment>
                 Password:
-               <input type="text" className="password" name="password" required/>
+               <input type="password" className="password" name="password" required/>
               </React.Fragment>
 
             </DialogContentText>

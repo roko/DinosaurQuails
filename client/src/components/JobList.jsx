@@ -7,12 +7,12 @@ const styles = {
   root: {
     display: 'flex',
     flexFlow: 'row wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: '#fff',
   },
   gridList: {
-    width: 600,
+    width: 500,
     height: 'auto',
     padding: 10,
   },
