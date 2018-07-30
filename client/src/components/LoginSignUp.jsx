@@ -43,6 +43,7 @@ class LoginSignUp extends React.Component {
     };
   }
 
+  /** *This function takes the inputted values of email and password field and sends a post request to the server to check if the username/password combination is valid. If valid then the userinfo is saved in main app state with isLoggedIn state toggling to true and the login modal closes.*/
   logIntoAccount () {
     let requestData = {
       email: document.getElementsByClassName('email')[0].value,
@@ -50,7 +51,6 @@ class LoginSignUp extends React.Component {
     }
 
     this.props.submitData('/login', requestData, ((response, err) => {
-        console.log('this went through', response.data)
         if (response.data.messageCode === 103 || response.data.messageCode === 104) {
           this.setState({
             nonExistentUser: true
@@ -65,6 +65,7 @@ class LoginSignUp extends React.Component {
     ))
   }
 
+
   registerForAccount () {
     let requestData = {
       firstName: document.getElementsByClassName('firstName')[0].value,
@@ -75,7 +76,6 @@ class LoginSignUp extends React.Component {
     }
 
     this.props.submitData('/signup', requestData, (response, err) => {
-        console.log('got a new account', response.data)
         if (response.data.messageCode === 101 || response.data.messageCode === 102) {
           this.setState({
             alreadyExistingUser: true
@@ -93,14 +93,13 @@ class LoginSignUp extends React.Component {
     let MessageToUser = '';
 
     if (this.state.nonExistentUser) {
-      MessageToUser = 'User does not exist';
+      MessageToUser = 'Sorry! This email and password combination is not valid...';
     }
 
     if (this.state.alreadyExistingUser) {
       MessageToUser = 'User already exists';
     }
 
-    console.log('view', this.props.view)
     if (this.props.view === 'login') {
       return (
         <React.Fragment>

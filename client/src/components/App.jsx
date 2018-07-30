@@ -35,6 +35,7 @@ class App extends Component {
     this.showDetail = this.showDetail.bind(this);
   }
 
+  /** * Very reusable methods for server requests - parameters are simply endpoint instead of entire URL, request object and callback function*/
   retrieveData(endpoint, params, callback) {
     axios
       .get(endpoint, params)
@@ -72,19 +73,22 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  /** *This function changes the loginSignupButtonIsClicked state to retermine if the login or register modal should popup for user to input information */
   displayLoginSignup(id) {
     this.setState({
       loginSignupButtonIsClicked: id
     });
   }
 
-  //can also use this for the logout component
+  /** *This function changes isLoggedIn state to determine how the Nav bar appears and whether the user's job info is showing or cleared(upon logout). */
   updateStatus(status) {
     this.setState({
       isLoggedIn: status
     })
   }
 
+  /** *This function is utilized by both the login/register as well as logout components. Logging in/registering changes the main app state to have the user's info so subcomponents can receive them to utilize in server calls if needed. Logging out sets the user info in the state to be null.
+ */
   updateUserInfo(firstName, lastName, userName, email, id) {
     this.setState({
       user: {
@@ -97,11 +101,12 @@ class App extends Component {
     }, this.getJobData)
   }
 
+  /** *Conditional rendering for the login/register modal.
+ */
   showLoginOrSignUp(){
     const view = this.state.loginSignupButtonIsClicked
 
     if (view) {
-      console.log('eggs')
       return (
         <LoginSignUp
           view={view}
@@ -115,7 +120,7 @@ class App extends Component {
     }
   }
 
-  //this function gets called when user logs in, adds job, updates/deletes job
+  /** *this function gets called when user logs in, adds job, updates/deletes job */
   getJobData() {
     if(this.state.isLoggedIn) {
       this.retrieveData('/jobs', {params: {userId: this.state.user.id}}, ((response, err) => {
@@ -129,6 +134,8 @@ class App extends Component {
     })
   }
 
+  /** *Conditional rendering if the Create button was clicked.
+ */
   showCreate() {
     if (this.state.createView === 'create') {
       return (
@@ -143,9 +150,8 @@ class App extends Component {
     }
   }
 
+  /** *Updates the visible jobs to match the category that the user selected. */
   changeJobFilter(status) {
-    console.log('whats the filter', status)
-
     this.setState({
       filter: status
     })
@@ -159,6 +165,7 @@ class App extends Component {
     });
   }
 
+  /** *This function sends a post request to server with the job info andn then updates page with the new jobs from database and closes the create job modal. */
   createNewJob(job) {
     this.submitData('/jobs', job, (response, err) => {
        this.retrieveData('/jobs', {params: {userId: this.state.user.id}}, ((response, err) => {
@@ -191,7 +198,6 @@ class App extends Component {
   //? Job Detail Functions:
 
   detailOpen(currentJob) {
-    console.log('currentjob', currentJob)
     this.setState({
       selectedJob: currentJob,
       detailOpen: true
@@ -205,6 +211,7 @@ class App extends Component {
     })
   }
 
+  /** *This function is utilized when a job is clicked on so the detailed modal of job pops up for user to read/edit/close */
   showDetail() {
     if(this.state.detailOpen) {
       return (
@@ -219,6 +226,7 @@ class App extends Component {
     }
   }
 
+  /** *This gets the Nav bar and Select bars to render as the default view regardless of login status */
   render() {
     return (
       <div>
