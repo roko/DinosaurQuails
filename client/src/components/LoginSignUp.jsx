@@ -12,9 +12,7 @@ import TextField from '@material-ui/core/TextField';
 
 import axios from 'axios';
 
-// This will build the Modal for User Login
-// On the Modal will be an option for Sign In
-// Would be a good idea to make separate components to call here for both Login and SignUp
+// This will build the Modal for User Login and signing up
 
 const styles = theme => ({
   container: {
@@ -65,7 +63,7 @@ class LoginSignUp extends React.Component {
     ))
   }
 
-
+  /** *This function takes the inputted values of the registration fields, sends a post request to server to make a new entry in database for the new user. Also checks if email or username is already in use, if so displays message to client.*/
   registerForAccount () {
     let requestData = {
       firstName: document.getElementsByClassName('firstName')[0].value,
@@ -89,6 +87,7 @@ class LoginSignUp extends React.Component {
     )
   }
 
+  /** * This conditionally renders signup or registration modals depending on which button was clicked in the Nav bar as well as have user message appear in case there is an issue with logging in/registering. Would be a good idea to make separate components to call here for both Login and SignUp and have tab on each one to toggle in case user misclicked*/
   render() {
     let MessageToUser = '';
 
