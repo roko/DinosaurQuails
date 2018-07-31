@@ -20,28 +20,26 @@ const styles = {
 };
 
 const Nav = props => (
-        <div id="nav" style={styles.root}>
-        <AppBar position="static" style={styles.appbar}>
-          <Toolbar variant="dense" >
-               <Typography variant="headline" color="inherit" id="banner" style={styles.flex}>
-              <div><Banner /></div>
-            </Typography>
-            {props.isLoggedIn ? (
-              <div>
-                <Button color="inherit" id="Create" onClick={() => props.displayCreateJob('create')}>
-                  Add
-                </Button>
-                <Button color="inherit" id="logout" onClick={() => {props.updateStatus(false); props.updateUserInfo(null, null, null, null, null)}}>Logout</Button>
-              </div>
-              ) : (
+  <div id="nav" style={styles.root}>
+    <AppBar position="static" style={styles.appbar}>
+      <Toolbar variant="dense" >
+        <Typography variant="headline" color="inherit" id="banner" style={styles.flex}>
+          <div><Banner /></div>
+        </Typography>
+          {props.isLoggedIn ? (
+            <div>
+              <Button color="inherit" id="Create" onClick={() => props.displayCreateJob('create')}>Add</Button>
+              <Button color="inherit" id="logout" onClick={() => {props.updateStatus(false); props.updateUserInfo(null, null, null, null, null)}}>Logout</Button>
+            </div>
+          ) : (
             <div>
               <Button color="inherit" id="login" onClick={() => props.displayLoginSignup('login')}>Login</Button>
               <Button color="inherit" id="register" onClick={() => props.displayLoginSignup('register')}>Register</Button>
             </div>
-              )}
-          </Toolbar>
-        </AppBar>
-      </div>
+          )}
+      </Toolbar>
+    </AppBar>
+  </div>
 );
 
 

@@ -9,6 +9,9 @@ const styles = {
 };
 
 
+/**
+ * @description This sends info of which button was clicked back to App component so its filter state can be updated for the JobList to show the jobs of that status.
+**/
 class SelectBar extends Component {
   constructor (props) {
     super(props);

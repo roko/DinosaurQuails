@@ -4,9 +4,11 @@ const db = require('../db/index.js');
 
 let router = express.Router();
 
+/**
+ * @description This utilizes db function to search for jobs. Client side has user id as the request query to search for.
+**/
 const jobHelperQuery = (req, res) => {
 
-  console.log(req.query);
   db.getJobs(req.query, (err, jobs) => {
     if (err) {
       console.log(err);
@@ -16,14 +18,9 @@ const jobHelperQuery = (req, res) => {
   });
 };
 
-const jobPoster = (req, res) => {
-  // const jobHelperSaver = (req, res) => {
-  //TODO:
-  //input calender modal into date
-  //test this
 
-  //create object of inputted fields first in case user left some fields blank so the entry still gets saved with 'none' as default value
-  console.log('what is in the request', req.body);
+  //* @description This is utilized when a request is received from client to add a job entry to db. In case user left some fields in the form blank we have the fieldInfo object with default values to ensure the entry still gets saved. */
+const jobPoster = (req, res) => {
 
   let fieldInfo = {
     userId: req.body.userId || '66666666',
@@ -38,7 +35,6 @@ const jobPoster = (req, res) => {
     interviewedDate: req.body.interviewedDate || new Date(),
     coverLetterUrl: req.body.coverLetterUrl || 'none',
     state: req.body.state || 'none',
-    userId: req.body.userId,
     payRange: req.body.payRange || '$1,000,000,000',
     logoUrl: 'https://i.imgur.com/usLTbBq.png'
   };
@@ -54,6 +50,7 @@ const jobPoster = (req, res) => {
   //   }
   //   //send req.miscFields to DB for new instance
   // });
+
   db.createJob(fieldInfo, (err, data) => {
     if (err) {
       console.log('Job Saver Error: ', err);
