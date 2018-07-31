@@ -24,15 +24,13 @@ Body Parser
 
 Express
 
-React 
+React
 
 React Redux
 
 React Router
 
-Morgan 
+Morgan
 
 Mongoose
-
-MySQL/PostgreSQL
 

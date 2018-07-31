@@ -12,9 +12,7 @@ import TextField from '@material-ui/core/TextField';
 
 import axios from 'axios';
 
-// This will build the Modal for User Login
-// On the Modal will be an option for Sign In
-// Would be a good idea to make separate components to call here for both Login and SignUp
+// This will build the Modal for User Login and signing up
 
 const styles = theme => ({
   container: {
@@ -43,6 +41,7 @@ class LoginSignUp extends React.Component {
     };
   }
 
+  /** *This function takes the inputted values of email and password field and sends a post request to the server to check if the username/password combination is valid. If valid then the userinfo is saved in main app state with isLoggedIn state toggling to true and the login modal closes.*/
   logIntoAccount () {
     let requestData = {
       email: document.getElementsByClassName('email')[0].value,
@@ -50,7 +49,6 @@ class LoginSignUp extends React.Component {
     }
 
     this.props.submitData('/login', requestData, ((response, err) => {
-        console.log('this went through', response.data)
         if (response.data.messageCode === 103 || response.data.messageCode === 104) {
           this.setState({
             nonExistentUser: true
@@ -65,6 +63,7 @@ class LoginSignUp extends React.Component {
     ))
   }
 
+  /** *This function takes the inputted values of the registration fields, sends a post request to server to make a new entry in database for the new user. Also checks if email or username is already in use, if so displays message to client.*/
   registerForAccount () {
     let requestData = {
       firstName: document.getElementsByClassName('firstName')[0].value,
@@ -75,7 +74,6 @@ class LoginSignUp extends React.Component {
     }
 
     this.props.submitData('/signup', requestData, (response, err) => {
-        console.log('got a new account', response.data)
         if (response.data.messageCode === 101 || response.data.messageCode === 102) {
           this.setState({
             alreadyExistingUser: true
@@ -89,18 +87,18 @@ class LoginSignUp extends React.Component {
     )
   }
 
+  /** * This conditionally renders signup or registration modals depending on which button was clicked in the Nav bar as well as have user message appear in case there is an issue with logging in/registering. Would be a good idea to make separate components to call here for both Login and SignUp and have tab on each one to toggle in case user misclicked*/
   render() {
     let MessageToUser = '';
 
     if (this.state.nonExistentUser) {
-      MessageToUser = 'User does not exist';
+      MessageToUser = 'Sorry! This email and password combination is not valid...';
     }
 
     if (this.state.alreadyExistingUser) {
       MessageToUser = 'User already exists';
     }
 
-    console.log('view', this.props.view)
     if (this.props.view === 'login') {
       return (
         <React.Fragment>

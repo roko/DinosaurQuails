@@ -31,7 +31,7 @@ const Nav = props => (
                 <Button color="inherit" id="Create" onClick={() => props.displayCreateJob('create')}>
                   Add
                 </Button>
-                <Button color="inherit" id="logout" onClick={() => props.displayLoginSignup('logout')}>Logout</Button>
+                <Button color="inherit" id="logout" onClick={() => {props.updateStatus(false); props.updateUserInfo(null, null, null, null, null)}}>Logout</Button>
               </div>
               ) : (
             <div>
